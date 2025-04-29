@@ -1,12 +1,11 @@
 package com.pluralsight;
 
-import com.pluralsight.ui.WelcomeScreen;
+import com.pluralsight.service.BalancingAppCoordinator;
 
 public class TheBalancingActApp {
 
     public static void main(String[] args) {
-        WelcomeScreen.print();
-        WelcomeScreen.print();
+        BalancingAppCoordinator.start();
     }
 
 

@@ -5,32 +5,24 @@ import com.pluralsight.utils.ScreenUtils;
 public class WelcomeScreen {
 
     public static void print() {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        ScreenUtils.printWithMargins("+=================================================+");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|              THE BALANCING ACT                  |");
-        ScreenUtils.printWithMargins("|        Accounting Ledger Application            |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                                 |");
-        ScreenUtils.printWithMargins("|                                 Stanley Karol   |");
-        ScreenUtils.printWithMargins("|                                 Capstone - 2025 |");
-        ScreenUtils.printWithMargins("|                                 YearUp United   |");
-        ScreenUtils.printWithMargins("+=================================================+");
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        ScreenUtils.cls();
+        ScreenUtils.printlnWithMargins("+=================================================+");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|              THE BALANCING ACT                  |");
+        ScreenUtils.printlnWithMargins("|        Accounting Ledger Application            |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                                 |");
+        ScreenUtils.printlnWithMargins("|                                 Stanley Karol   |");
+        ScreenUtils.printlnWithMargins("|                                 Capstone - 2025 |");
+        ScreenUtils.printlnWithMargins("|                                 YearUp United   |");
+        ScreenUtils.printlnWithMargins("+=================================================+");
+        ScreenUtils.evenFromTheBottom(15);
         ScreenUtils.waitTillPressEnter();
         ScreenUtils.cls();
     }
-
 }
