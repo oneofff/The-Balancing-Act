@@ -11,8 +11,10 @@ public class BalancingAppCoordinator {
     }
 
     private static void homeScreenFlow() {
+        while (true) {
         HomeScreen.print();
         int option = HomeScreen.askForInput();
         HomeScreen.performAction(option);
+        }
     }
 }

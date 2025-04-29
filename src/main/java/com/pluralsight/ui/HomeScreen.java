@@ -3,6 +3,7 @@ package com.pluralsight.ui;
 import com.pluralsight.service.TransactionService;
 import com.pluralsight.utils.ConsoleStringReader;
 import com.pluralsight.utils.ScreenUtils;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class HomeScreen {
             4, TransactionService::exit
     );
 
+    @Getter
     enum MenuOption {
         ADD_DEPOSIT(1, "Add deposit"),
         MAKE_PAYMENT(2, "Make payment"),
@@ -28,14 +30,6 @@ public class HomeScreen {
         MenuOption(int value, String name) {
             this.value = value;
             this.name = name;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getName() {
-            return name;
         }
 
         public String getRepresentation() {
