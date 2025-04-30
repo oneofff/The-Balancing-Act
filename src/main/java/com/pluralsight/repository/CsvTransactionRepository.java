@@ -40,6 +40,13 @@ public class CsvTransactionRepository implements TransactionRepository {
         fileWriterUtils.writeLine(transaction.toCsv());
     }
 
+    @Override
+    public List<Transaction> getDeposits() {
+        return this.transactions.stream()
+                .filter(t -> t.getAmount().getDoubleValue() > 0)
+                .toList();
+    }
+
     private List<Transaction> readTransactions() {
         List<Transaction> transactions = new LinkedList<>();
         String header = fileReaderUtils.readLine(); // skip header
@@ -51,8 +58,21 @@ public class CsvTransactionRepository implements TransactionRepository {
         return transactions;
     }
 
+    @Override
+    public List<Transaction> getAllTransactions() {
+        return transactions;
+    }
+
+    @Override
+    public List<Transaction> getPayments() {
+        return this.transactions.stream()
+                .filter(t -> t.getAmount().getDoubleValue() < 0)
+                .toList();
+    }
+
     public void close() {
         fileWriterUtils.close();
         fileReaderUtils.close();
     }
+
 }

@@ -1,5 +1,7 @@
 package com.pluralsight.utils;
 
+import com.pluralsight.model.Transaction;
+
 import java.util.List;
 
 public class ScreenUtils {
@@ -72,6 +74,10 @@ public class ScreenUtils {
         System.out.println("\t".repeat(15) + message);
     }
 
+    public static void printfWithMargins(String message, Object ... args) {
+        System.out.printf("\t".repeat(15) + message, args);
+    }
+
     public static void printWithMargins(String message) {
         System.out.print("\t".repeat(15) + message);
     }
@@ -96,5 +102,9 @@ public class ScreenUtils {
     public static int askForMenuOptionsInput(int amountOfOptions) {
         ScreenUtils.printOnCenterOfTheScreen("Please select an option: ");
         return ConsoleStringReader.getIntInRangeWithMargin(1, amountOfOptions);
+    }
+
+    public static void printTransactions(List<Transaction> allTransactions, String title) {
+        TransactionPrinter.printTransactions(allTransactions, title);
     }
 }
