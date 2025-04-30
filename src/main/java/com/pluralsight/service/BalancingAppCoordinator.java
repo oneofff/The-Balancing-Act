@@ -30,6 +30,14 @@ public class BalancingAppCoordinator {
         }
     }
 
+    public static void reportScreenFlow() {
+        while (true) {
+            ReportScreen.print();
+            int option = ScreenUtils.askForMenuOptionsInput(ReportScreen.amountOfOptions());
+            performAction(option, ReportScreen.MenuOption.class);
+        }
+    }
+
     public static <T extends Enum<T> & MenuEntry> void performAction(int option, Class<T> menu) {
         T menuOption = Arrays.stream(menu.getEnumConstants())
                 .filter(entry -> entry.getValue() == option)

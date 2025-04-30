@@ -26,7 +26,7 @@ public class LedgerScreen {
         DISPLAY_ALL(1, "Display all transactions", DisplayTransactionScreen::printAll),
         DISPLAY_DEPOSITS(2, "Display deposits", DisplayTransactionScreen::printDeposits),
         DISPLAY_PAYMENTS(3, "Display payments", DisplayTransactionScreen::printPayments),
-        REPORTS(4, "Reports", ReportScreen::print),
+        REPORTS(4, "Reports", BalancingAppCoordinator::reportScreenFlow),
         BACK(5, "Back", BalancingAppCoordinator::homeScreenFlow);
 
         private final int value;

@@ -5,6 +5,7 @@ import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.files.FileReaderUtils;
 import com.pluralsight.utils.files.FileWriterUtils;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class CsvTransactionRepository implements TransactionRepository {
     private final FileWriterUtils fileWriterUtils;
     private static CsvTransactionRepository instance;
     private static final String HEADER = "date|time|description|vendor|amount";
+    private final LocalDate today = LocalDate.now();
 
     private CsvTransactionRepository() {
         this.fileWriterUtils = new FileWriterUtils(AppConfig.getCsvFilePath());
@@ -70,9 +72,46 @@ public class CsvTransactionRepository implements TransactionRepository {
                 .toList();
     }
 
+    @Override
+    public List<Transaction> getMonthToDate() {
+        LocalDate monthStart = today.withDayOfMonth(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(monthStart)
+                        && !t.getDate().isAfter(today))
+                .toList();
+    }
+
+    @Override
+    public List<Transaction> getPreviousMonth() {
+        LocalDate prevMonthStart = today.minusMonths(1).withDayOfMonth(1);
+        LocalDate thisMonthStart = today.withDayOfMonth(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(prevMonthStart)
+                        && t.getDate().isBefore(thisMonthStart))
+                .toList();
+    }
+
+    @Override
+    public List<Transaction> getPreviousYear() {
+        LocalDate startOfLastYear = today.minusYears(1).withDayOfYear(1);
+        LocalDate startOfThisYear = today.withDayOfYear(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(startOfLastYear)
+                        && t.getDate().isBefore(startOfThisYear))
+                .toList();
+    }
+
+    @Override
+    public List<Transaction> getYearToDate() {
+        LocalDate startOfYear = today.withDayOfYear(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(startOfYear)
+                        && !t.getDate().isAfter(today))
+                .toList();
+    }
+
     public void close() {
         fileWriterUtils.close();
         fileReaderUtils.close();
     }
-
 }

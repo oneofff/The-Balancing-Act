@@ -23,4 +23,5 @@ public class AppConfig {
     public static String getCsvFilePath() {
         return properties.getProperty("transaction.file.path");
     }
+
 }
