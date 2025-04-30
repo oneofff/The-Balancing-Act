@@ -14,19 +14,16 @@ public class CsvTransactionRepository implements TransactionRepository {
     private final FileReaderUtils fileReaderUtils;
     private final FileWriterUtils fileWriterUtils;
     private static CsvTransactionRepository instance;
-    private static final String HEADER = "date|time|description|vendor|amount\n";
+    private static final String HEADER = "date|time|description|vendor|amount";
 
     private CsvTransactionRepository() {
         this.fileWriterUtils = new FileWriterUtils(AppConfig.getCsvFilePath());
         this.fileReaderUtils = new FileReaderUtils(AppConfig.getCsvFilePath());
-        // if file is empty add a header
+
         if (fileReaderUtils.isEmpty()) {
             fileWriterUtils.writeLine(HEADER);
         }
         this.transactions = readTransactions();
-        for (Transaction transaction : transactions) {
-            System.out.println(transaction);
-        }
     }
 
     public static CsvTransactionRepository getInstance() {
@@ -34,7 +31,7 @@ public class CsvTransactionRepository implements TransactionRepository {
             return instance;
         }
         instance = new CsvTransactionRepository();
-        return new CsvTransactionRepository();
+        return instance;
     }
 
     @Override

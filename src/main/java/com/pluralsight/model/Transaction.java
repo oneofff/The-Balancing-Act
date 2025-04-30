@@ -1,5 +1,6 @@
 package com.pluralsight.model;
 
+import com.pluralsight.utils.DataTypes.BankBigDecimal;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,10 +13,10 @@ public class Transaction {
     private LocalTime time;
     private String description;
     private String vendor;
-    private double amount;
+    private BankBigDecimal amount;
 
     public Transaction(double amount, String vendor, String description) {
-        this.amount = amount;
+        this.amount = new BankBigDecimal(amount);
         this.vendor = vendor;
         this.description = description;
         this.date = LocalDate.now();
@@ -28,10 +29,10 @@ public class Transaction {
         this.time = LocalTime.parse(fields[1]);
         this.description = fields[2];
         this.vendor = fields[3];
-        this.amount = Double.parseDouble(fields[4]);
+        this.amount = new BankBigDecimal(Double.parseDouble(fields[4]));
     }
 
     public String toCsv() {
-        return String.format("%s|%s|%s|%s|%.2f", date, time.format(DateTimeFormatter.ofPattern("HH:mm:ss")), description, vendor, amount);
+        return String.format("%s|%s|%s|%s|%.2f", date, time.format(DateTimeFormatter.ofPattern("HH:mm:ss")), description, vendor, amount.getDoubleValue());
     }
 }

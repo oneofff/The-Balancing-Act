@@ -1,6 +1,5 @@
 package com.pluralsight.utils;
 
-import java.io.IOException;
 import java.util.List;
 
 public class ScreenUtils {
@@ -28,13 +27,9 @@ public class ScreenUtils {
 
 
     private static String buildBorder() {
-        StringBuilder border = new StringBuilder();
-        border.append("+");
-        for (int i = 0; i < DEFAULT_BORDER_LENGTH - 2; i++) {
-            border.append("=");
-        }
-        border.append("+");
-        return border.toString();
+        return "+" +
+                "=".repeat(DEFAULT_BORDER_LENGTH - 2) +
+                "+";
     }
 
     private static void printEmptyLinesOnBottom(int amountOfEmptyLines) {
@@ -67,12 +62,8 @@ public class ScreenUtils {
     public static void waitTillPressEnter() {
         printOnCenterOfTheScreen("Press Enter to continue...");
         while (true) {
-            try {
-                if (System.in.read() == '\n') {
-                    break;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (ConsoleStringReader.getStringWithMargin().isEmpty()) {
+                break;
             }
         }
     }
@@ -97,8 +88,7 @@ public class ScreenUtils {
     }
 
     public static void cls() {
-        // print new line 10 times
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 25; i++) {
             System.out.println();
         }
     }

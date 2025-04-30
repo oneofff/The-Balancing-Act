@@ -48,8 +48,7 @@ public class HomeScreen {
 
     public static int askForInput() {
         ScreenUtils.printOnCenterOfTheScreen("Please select an option: ");
-        ScreenUtils.printWithMargins("");
-        return ConsoleStringReader.getIntInRange(1, 4);
+        return ConsoleStringReader.getIntInRangeWithMargin(1, 4);
     }
 
     public static void performAction(int option) {

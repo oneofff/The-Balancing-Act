@@ -13,7 +13,7 @@ public class FileWriterUtils implements AutoCloseable {
             File newFile = new File(file);
             File parent = newFile.getParentFile();
             if (!parent.exists())
-                if (!parent.mkdir()){
+                if (!parent.mkdir()) {
                     throw new IOException("Could not create directory: " + parent);
                 }
 
@@ -26,7 +26,7 @@ public class FileWriterUtils implements AutoCloseable {
 
     public void writeLine(String line) {
         try {
-            bufferedWriter.write(line);
+            bufferedWriter.write(line + "\n");
             bufferedWriter.flush();
         } catch (Exception e) {
             throw new RuntimeException(e);
