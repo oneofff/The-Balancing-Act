@@ -49,4 +49,8 @@ public class ConsoleStringReader {
         ScreenUtils.printWithMargins("");
         return scanner.nextLine();
     }
+
+    public static void close() {
+        scanner.close();
+    }
 }

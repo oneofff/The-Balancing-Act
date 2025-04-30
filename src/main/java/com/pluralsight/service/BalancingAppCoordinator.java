@@ -1,7 +1,11 @@
 package com.pluralsight.service;
 
-import com.pluralsight.ui.HomeScreen;
-import com.pluralsight.ui.WelcomeScreen;
+import com.pluralsight.repository.CsvTransactionRepository;
+import com.pluralsight.ui.*;
+import com.pluralsight.utils.ConsoleStringReader;
+import com.pluralsight.utils.ScreenUtils;
+
+import java.util.Arrays;
 
 public class BalancingAppCoordinator {
 
@@ -10,11 +14,49 @@ public class BalancingAppCoordinator {
         homeScreenFlow();
     }
 
-    private static void homeScreenFlow() {
+    public static void homeScreenFlow() {
         while (true) {
-        HomeScreen.print();
-        int option = HomeScreen.askForInput();
-        HomeScreen.performAction(option);
+            HomeScreen.print();
+            int option = ScreenUtils.askForMenuOptionsInput(HomeScreen.amountOfOptions());
+            performAction(option, HomeScreen.MenuOption.class);
+        }
+    }
+
+    public static void ledgerScreenFlow() {
+        while (true) {
+            LedgerScreen.print();
+            int option = ScreenUtils.askForMenuOptionsInput(LedgerScreen.amountOfOptions());
+            performAction(option, LedgerScreen.MenuOption.class);
+        }
+    }
+
+    public static <T extends Enum<T> & MenuEntry> void performAction(int option, Class<T> menu) {
+        T menuOption = Arrays.stream(menu.getEnumConstants())
+                .filter(entry -> entry.getValue() == option)
+                .findFirst()
+                .orElse(null);
+        if (menuOption != null) {
+            ScreenUtils.cls();
+            menuOption.getAction().run();
+        } else {
+            System.out.println("Invalid option. Please try again.");
+        }
+        ScreenUtils.waitTillPressEnter();
+        ScreenUtils.cls();
+    }
+
+    public static void exit() {
+        SeeYouScreen.print();
+        closeResources();
+        System.exit(0);
+    }
+
+    private static void closeResources() {
+        try {
+            ConsoleStringReader.close();
+            CsvTransactionRepository.getInstance().close();
+        } catch (Exception e) {
+            System.err.println("Error closing resources: " + e.getMessage());
         }
     }
 }

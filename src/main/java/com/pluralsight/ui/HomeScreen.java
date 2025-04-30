@@ -1,42 +1,19 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.service.BalancingAppCoordinator;
 import com.pluralsight.service.TransactionService;
-import com.pluralsight.utils.ConsoleStringReader;
 import com.pluralsight.utils.ScreenUtils;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class HomeScreen {
 
-    private static final Map<Integer, Runnable> actions = Map.of(
-            1, TransactionService::addDeposit,
-            2, TransactionService::makePayment,
-            3, LedgerScreen::print,
-            4, TransactionService::exit
-    );
 
-    @Getter
-    enum MenuOption {
-        ADD_DEPOSIT(1, "Add deposit"),
-        MAKE_PAYMENT(2, "Make payment"),
-        LEDGER_MENU(3, "Ledger menu"),
-        EXIT(4, "Exit");
-
-        private final int value;
-        private final String name;
-
-        MenuOption(int value, String name) {
-            this.value = value;
-            this.name = name;
-        }
-
-        public String getRepresentation() {
-            return value + ". " + name;
-        }
+    public static int amountOfOptions() {
+        return MenuOption.getAmountOfOptions();
     }
-
 
     public static void print() {
         ScreenUtils.printBox(List.of(MenuOption.ADD_DEPOSIT.getRepresentation(),
@@ -45,21 +22,29 @@ public class HomeScreen {
                 MenuOption.EXIT.getRepresentation()));
     }
 
+    @Getter
+    public enum MenuOption implements MenuEntry {
+        ADD_DEPOSIT(1, "Add deposit", TransactionService::addDeposit),
+        MAKE_PAYMENT(2, "Make payment", TransactionService::makePayment),
+        LEDGER_MENU(3, "Ledger menu", BalancingAppCoordinator::ledgerScreenFlow),
+        EXIT(4, "Exit", BalancingAppCoordinator::exit);
 
-    public static int askForInput() {
-        ScreenUtils.printOnCenterOfTheScreen("Please select an option: ");
-        return ConsoleStringReader.getIntInRangeWithMargin(1, 4);
-    }
+        private final int value;
+        private final String name;
+        private final Runnable action;
 
-    public static void performAction(int option) {
-        Runnable action = actions.get(option);
-        if (action != null) {
-            ScreenUtils.cls();
-            action.run();
-        } else {
-            System.out.println("Invalid option. Please try again.");
+        MenuOption(int value, String name, Runnable action) {
+            this.value = value;
+            this.name = name;
+            this.action = action;
         }
-        ScreenUtils.waitTillPressEnter();
-        ScreenUtils.cls();
+
+        public String getRepresentation() {
+            return value + ". " + name;
+        }
+
+        public static int getAmountOfOptions() {
+            return (int) Arrays.stream(values()).count();
+        }
     }
 }

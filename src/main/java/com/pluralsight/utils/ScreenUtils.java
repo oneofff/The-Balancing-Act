@@ -92,4 +92,9 @@ public class ScreenUtils {
             System.out.println();
         }
     }
+
+    public static int askForMenuOptionsInput(int amountOfOptions) {
+        ScreenUtils.printOnCenterOfTheScreen("Please select an option: ");
+        return ConsoleStringReader.getIntInRangeWithMargin(1, amountOfOptions);
+    }
 }

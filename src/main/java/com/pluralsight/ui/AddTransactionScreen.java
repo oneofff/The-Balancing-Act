@@ -4,8 +4,8 @@ import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.ConsoleStringReader;
 import com.pluralsight.utils.ScreenUtils;
 
-public class TransactionScreen {
-    public static Transaction getTransaction(boolean isDeposit) {
+public class AddTransactionScreen {
+    public static Transaction addTransaction(boolean isDeposit) {
         if (isDeposit) {
 
             ScreenUtils.printOnCenterOfTheScreen("Add deposit:");

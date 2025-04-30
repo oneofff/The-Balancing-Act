@@ -50,4 +50,9 @@ public class CsvTransactionRepository implements TransactionRepository {
         }
         return transactions;
     }
+
+    public void close() {
+        fileWriterUtils.close();
+        fileReaderUtils.close();
+    }
 }

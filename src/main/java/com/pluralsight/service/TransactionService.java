@@ -3,8 +3,7 @@ package com.pluralsight.service;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.repository.CsvTransactionRepository;
 import com.pluralsight.repository.TransactionRepository;
-import com.pluralsight.ui.SeeYouScreen;
-import com.pluralsight.ui.TransactionScreen;
+import com.pluralsight.ui.AddTransactionScreen;
 
 public class TransactionService {
     private static final TransactionRepository transactionRepository;
@@ -13,21 +12,13 @@ public class TransactionService {
         transactionRepository = CsvTransactionRepository.getInstance();
     }
 
-    public static void exit() {
-        System.out.println("Exiting the application...");
-        SeeYouScreen.print();
-        System.exit(0);
-    }
-
     public static void makePayment() {
-        Transaction transaction = TransactionScreen.getTransaction(false);
+        Transaction transaction = AddTransactionScreen.addTransaction(false);
         transactionRepository.save(transaction);
     }
 
     public static void addDeposit() {
-        Transaction transaction = TransactionScreen.getTransaction(true);
+        Transaction transaction = AddTransactionScreen.addTransaction(true);
         transactionRepository.save(transaction);
     }
-
-
 }
