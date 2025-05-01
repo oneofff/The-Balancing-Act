@@ -7,8 +7,10 @@ import java.util.List;
 
 public final class TransactionPrinter {
 
-    private static final String[] HEADERS =
-            {"Date", "Time", "Description", "Vendor", "Amount"};
+    public static final String YELLOW = "\033[0;33m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    private static final String[] HEADERS = {"Date", "Time", "Description", "Vendor", "Amount"};
 
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -54,13 +56,29 @@ public final class TransactionPrinter {
 
         //rows
         for (Transaction t : transactions) {
-            ScreenUtils.printfWithMargins(headerRow,
+            String color = t.getAmount().getDoubleValue() > 0 ? GREEN : YELLOW;
+            ScreenUtils.printfWithMargins(color + headerRow,
                     t.getDate(),
                     TIME_FMT.format(t.getTime()),
                     t.getDescription(),
                     t.getVendor(),
                     String.format("%.2f", t.getAmount().getDoubleValue()));
         }
+
+        //total
+        String total = transactions.stream()
+                .map(t -> t.getAmount().getDoubleValue())
+                .reduce(0.0, Double::sum)
+                .toString();
+        ScreenUtils.printlnWithMargins(ANSI_RESET + separator);
+        String totalRow = "| %-" + dateW + "s | %-" + timeW + "s | %-" + descW +
+                "s | %-" + vendW + "s | %" + amtW + "s |%n";
+        ScreenUtils.printfWithMargins(totalRow,
+                "Total",
+                "",
+                "",
+                "",
+                String.format("%.2f", Double.parseDouble(total)));
 
         //footer
         ScreenUtils.printlnWithMargins(separator);

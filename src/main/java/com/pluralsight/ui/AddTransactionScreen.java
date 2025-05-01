@@ -18,7 +18,7 @@ public class AddTransactionScreen {
         String vendor = ConsoleStringReader.getStringWithMargin();
         ScreenUtils.printlnWithMargins("Enter description: ");
         String description = ConsoleStringReader.getStringWithMargin();
-        if (!isDeposit) {
+        if (!isDeposit && amount > 0) {
             amount = -amount;
         }
         return new Transaction(amount, vendor, description);
