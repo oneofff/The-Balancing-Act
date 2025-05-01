@@ -3,6 +3,18 @@
 This is a console-based accounting ledger application written in Java. It allows users to track income (deposits) and
 expenses (payments) by recording transactions, which are persistently stored in a CSV file.
 
+This project was developed as part of the YearUp Learn To Code Academy (LTCA) program (Spring 2025 cohort), with curriculum provided by [Pluralsight](https://www.pluralsight.com/).
+
+Guidance provided by Pluralsight instructor [Craig McKeachie](https://www.linkedin.com/in/craigmckeachie/).
+
+
+## Table of Contents
+- [Project Description](#project-description)
+- [Features](#features)
+- [How it Works](#how-it-works)
+- [Application Screens (Console Output Examples)](#application-screens-console-output-examples)
+- [Interesting Code Snippet](#interesting-code-snippet)
+
 ## Project Description
 
 "The Balancing Act" provides a simple, menu-driven command-line interface for managing personal finances. Users can add
@@ -40,6 +52,52 @@ The application uses a layered structure:
 5. **Configuration:** `AppConfig` loads settings like the CSV file path from `application.properties`.
 6. **Utilities:** Provide helper functions for console I/O, file handling, data type management (`BankBigDecimal`), and
    screen formatting.
+
+```bash
+accounting-ledger-application/
+├── data/
+│   └── transactions.csv
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/
+│       │       └── pluralsight/
+│       │           ├── TheBalancingActApp.java
+│       │           ├── config/
+│       │           │   └── AppConfig.java
+│       │           ├── model/
+│       │           │   └── Transaction.java
+│       │           ├── repository/
+│       │           │   ├── CsvTransactionRepository.java
+│       │           │   └── TransactionRepository.java
+│       │           ├── service/
+│       │           │   ├── BalancingAppCoordinator.java
+│       │           │   └── TransactionService.java
+│       │           ├── ui/
+│       │           │   ├── AddTransactionScreen.java
+│       │           │   ├── CustomSearchScreen.java
+│       │           │   ├── DisplayTransactionScreen.java
+│       │           │   ├── HomeScreen.java
+│       │           │   ├── LedgerScreen.java
+│       │           │   ├── MenuEntry.java
+│       │           │   ├── ReportScreen.java
+│       │           │   ├── SeeYouScreen.java
+│       │           │   ├── WelcomeScreen.java
+│       │           │   └── dto/
+│       │           │       └── TransactionSearchCriteria.java
+│       │           └── utils/
+│       │               ├── ConsoleStringReader.java
+│       │               ├── ScreenUtils.java
+│       │               ├── TransactionPrinter.java
+│       │               ├── DataTypes/
+│       │               │   └── BankBigDecimal.java
+│       │               └── files/
+│       │                   ├── FileReaderUtils.java
+│       │                   └── FileWriterUtils.java
+│       └── resources/
+│           └── application.properties
+└── pom.xml
+```
 
 Data is stored in a pipe-delimited CSV file (`|`), typically located at `data/transactions.csv`.
 
