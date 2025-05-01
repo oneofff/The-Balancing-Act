@@ -38,9 +38,9 @@ Data is stored in a pipe-delimited CSV file (`|`), typically located at `data/tr
 *(Since this is a console application, "screens" refer to the text output in the terminal)*
 
 **1. Welcome Screen:**![img.png](screenshots/img.png) The initial screen displayed upon starting the application.
- **2. Home Menu:** ![img_1.png](screenshots/img_1.png) The main navigation menu.
- **3. Ledger Display:** ![img_2.png](screenshots/img_2.png) The Ledger menu.
- **4. Report Menu:** ![img_3.png](screenshots/img_3.png) Provides options for generating reports.
+**2. Home Menu:** ![img_1.png](screenshots/img_1.png) The main navigation menu.
+**3. Ledger Display:** ![img_2.png](screenshots/img_2.png) The Ledger menu.
+**4. Report Menu:** ![img_3.png](screenshots/img_3.png) Provides options for generating reports.
 ## Interesting Code Snippet: BalancingAppCoordinator
 ```java
 public class BalancingAppCoordinator {
