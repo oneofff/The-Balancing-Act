@@ -24,23 +24,21 @@ This is a console-based accounting ledger application written in Java. It allows
 
 The application uses a layered structure:
 
-1.  **UI Layer (`com.pluralsight.ui`):** Handles console input and output, displaying menus (`HomeScreen`, `LedgerScreen`, `ReportScreen`), prompting for user input (`AddTransactionScreen`, `CustomSearchScreen`), and displaying formatted data (`DisplayTransactionScreen`, `ScreenUtils`, `TransactionPrinter`).
-2.  **Service Layer (`com.pluralsight.service`):** Coordinates application flow (`BalancingAppCoordinator`) and orchestrates actions like adding transactions or performing searches (`TransactionService`).
-3.  **Repository Layer (`com.pluralsight.repository`):** Manages data access. `CsvTransactionRepository` implements the `TransactionRepository` interface, handling the reading and writing of `Transaction` objects to/from the configured CSV file.
-4.  **Model Layer (`com.pluralsight.model`):** Defines the data structure for a `Transaction`.
-5.  **Configuration (`com.pluralsight.config`):** `AppConfig` loads settings like the CSV file path from `application.properties`.
-6.  **Utilities (`com.pluralsight.utils`):** Provide helper functions for console I/O, file handling, data type management (`BankBigDecimal`), and screen formatting.
+1.  **UI Layer:** Handles console input and output, displaying menus, prompting for user input, and displaying formatted data.
+2.  **Service Layer:** Coordinates application flow (`BalancingAppCoordinator`) and orchestrates actions like adding transactions or performing searches (`TransactionService`).
+3.  **Repository Layer:** Manages data access. `CsvTransactionRepository` implements the `TransactionRepository` interface, handling the reading and writing of `Transaction` objects to/from the configured CSV file.
+4.  **Model Layer:** Defines the data structure for a `Transaction`.
+5.  **Configuration:** `AppConfig` loads settings like the CSV file path from `application.properties`.
+6.  **Utilities:** Provide helper functions for console I/O, file handling, data type management (`BankBigDecimal`), and screen formatting.
 
-Data is stored in a pipe-delimited CSV file (`|`), typically located at `data/transactions.csv`[cite: 1].
+Data is stored in a pipe-delimited CSV file (`|`), typically located at `data/transactions.csv`.
 
 ## Application Screens (Console Output Examples)
 
-*(Since this is a console application, "screens" refer to the text output in the terminal)*
-
-**1. Welcome Screen:**![img.png](screenshots/img.png) The initial screen displayed upon starting the application.
-**2. Home Menu:** ![img_1.png](screenshots/img_1.png) The main navigation menu.
-**3. Ledger Display:** ![img_2.png](screenshots/img_2.png) The Ledger menu.
-**4. Report Menu:** ![img_3.png](screenshots/img_3.png) Provides options for generating reports.
+**1. Welcome Screen:**![img.png](screenshots/img.png)
+**2. Home Menu:** ![img_1.png](screenshots/img_1.png)
+**3. Ledger Display:** ![img_2.png](screenshots/img_2.png)
+**4. Report Menu:** ![img_3.png](screenshots/img_3.png)
 ## Interesting Code Snippet: BalancingAppCoordinator
 ```java
 public class BalancingAppCoordinator {
