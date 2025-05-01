@@ -4,7 +4,7 @@ This is a console-based accounting ledger application written in Java. It allows
 
 ## Project Description
 
-"The Balancing Act" provides a simple, menu-driven command-line interface for managing personal finances. Users can add new transactions, view lists of existing transactions filtered by type (all, deposits, payments), and generate various financial reports based on date ranges (e.g., Month-to-Date, Year-to-Date, Custom Search). All transaction data is read from and saved to a local CSV file (`data/transactions.csv` by default [cite: 1]), making it easy to view or manipulate the data outside the application if needed.
+"The Balancing Act" provides a simple, menu-driven command-line interface for managing personal finances. Users can add new transactions, view lists of existing transactions filtered by type (all, deposits, payments), and generate various financial reports based on date ranges (e.g., Month-to-Date, Year-to-Date, Custom Search). All transaction data is read from and saved to a local CSV file (`data/transactions.csv` by default), making it easy to view or manipulate the data outside the application if needed.
 
 ## Features
 
