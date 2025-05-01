@@ -37,8 +37,71 @@ Data is stored in a pipe-delimited CSV file (`|`), typically located at `data/tr
 
 *(Since this is a console application, "screens" refer to the text output in the terminal)*
 
-**1. Welcome Screen:** The initial screen displayed upon starting the application.
- **2. Home Menu:** The main navigation menu.
- **3. Ledger Display:** Example of viewing all transactions.
- **4. Add Transaction Prompt:** Example of the prompts when adding a deposit or payment.
-## Interesting Code Snippet:
+**1. Welcome Screen:**![img.png](screenshots/img.png) The initial screen displayed upon starting the application.
+ **2. Home Menu:** ![img_1.png](screenshots/img_1.png) The main navigation menu.
+ **3. Ledger Display:** ![img_2.png](screenshots/img_2.png) The Ledger menu.
+ **4. Report Menu:** ![img_3.png](screenshots/img_3.png) Provides options for generating reports.
+## Interesting Code Snippet: BalancingAppCoordinator
+```java
+public class BalancingAppCoordinator {
+
+    public static void start() {
+        WelcomeScreen.print();
+        homeScreenFlow();
+    }
+
+    public static void homeScreenFlow() {
+        while (true) {
+            HomeScreen.print();
+            int option = ScreenUtils.askForMenuOptionsInput(HomeScreen.amountOfOptions());
+            performAction(option, HomeScreen.MenuOption.class);
+        }
+    }
+
+    public static void ledgerScreenFlow() {
+        while (true) {
+            LedgerScreen.print();
+            int option = ScreenUtils.askForMenuOptionsInput(LedgerScreen.amountOfOptions());
+            performAction(option, LedgerScreen.MenuOption.class);
+        }
+    }
+
+    public static void reportScreenFlow() {
+        while (true) {
+            ReportScreen.print();
+            int option = ScreenUtils.askForMenuOptionsInput(ReportScreen.amountOfOptions());
+            performAction(option, ReportScreen.MenuOption.class);
+        }
+    }
+
+    public static <T extends Enum<T> & MenuEntry> void performAction(int option, Class<T> menu) {
+        T menuOption = Arrays.stream(menu.getEnumConstants())
+                .filter(entry -> entry.getValue() == option)
+                .findFirst()
+                .orElse(null);
+        if (menuOption != null) {
+            ScreenUtils.cls();
+            menuOption.getAction().run();
+        } else {
+            System.out.println("Invalid option. Please try again.");
+        }
+        ScreenUtils.waitTillPressEnter();
+        ScreenUtils.cls();
+    }
+
+    public static void exit() {
+        closeResources();
+        SeeYouScreen.print();
+        System.exit(0);
+    }
+
+    private static void closeResources() {
+        try {
+            ConsoleStringReader.close();
+            CsvTransactionRepository.getInstance().close();
+        } catch (Exception e) {
+            System.err.println("Error closing resources: " + e.getMessage());
+        }
+    }
+}
+```
