@@ -2,6 +2,8 @@ package com.pluralsight.utils;
 
 import com.pluralsight.model.Transaction;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ScreenUtils {
@@ -105,6 +107,8 @@ public class ScreenUtils {
     }
 
     public static void printTransactions(List<Transaction> allTransactions, String title) {
-        TransactionPrinter.printTransactions(allTransactions, title);
+        List<Transaction> transactions = new ArrayList<>(allTransactions);
+        Collections.reverse(transactions);
+        TransactionPrinter.printTransactions(transactions, title);
     }
 }
