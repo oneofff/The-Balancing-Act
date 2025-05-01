@@ -28,4 +28,32 @@ public class TransactionService {
     public static List<Transaction> customSearch(TransactionSearchCriteria criteria) {
         return transactionRepository.customSearch(criteria);
     }
+
+    public static List<Transaction> getAllTransactions() {
+        return transactionRepository.getAllTransactions();
+    }
+
+    public static List<Transaction> getDeposits() {
+        return transactionRepository.getDeposits();
+    }
+
+    public static List<Transaction> getPayments() {
+        return transactionRepository.getPayments();
+    }
+
+    public static List<Transaction> getMonthToDate() {
+        return transactionRepository.getMonthToDate();
+    }
+
+    public static List<Transaction> getPreviousMonth() {
+        return transactionRepository.getPreviousMonth();
+    }
+
+    public static List<Transaction> getYearToDate() {
+        return transactionRepository.getYearToDate();
+    }
+
+    public static List<Transaction> getPreviousYear() {
+        return transactionRepository.getPreviousYear();
+    }
 }
