@@ -1,6 +1,7 @@
 package com.pluralsight.repository;
 
 import com.pluralsight.model.Transaction;
+import com.pluralsight.ui.dto.TransactionSearchCriteria;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface TransactionRepository {
     List<Transaction> getPreviousYear();
 
     List<Transaction> getYearToDate();
+
+    List<Transaction> customSearch(TransactionSearchCriteria criteria);
 }

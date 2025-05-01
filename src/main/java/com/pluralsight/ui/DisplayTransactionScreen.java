@@ -14,7 +14,7 @@ public class DisplayTransactionScreen {
         List<Transaction> allTransactions = transactionRepository.getAllTransactions();
         ScreenUtils.printTransactions(allTransactions, "All Transactions");
     }
-
+    //ToDo: move to TransactionService
     public static void printDeposits() {
         List<Transaction> deposits = transactionRepository.getDeposits();
         ScreenUtils.printTransactions(deposits, "Deposits");

@@ -54,8 +54,8 @@ public class BalancingAppCoordinator {
     }
 
     public static void exit() {
-        SeeYouScreen.print();
         closeResources();
+        SeeYouScreen.print();
         System.exit(0);
     }
 

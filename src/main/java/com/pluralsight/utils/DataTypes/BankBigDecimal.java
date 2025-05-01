@@ -87,5 +87,9 @@ public class BankBigDecimal {
         return new BankBigDecimal(this.value.subtract(one, DEFAULT_CONTEXT));
     }
 
+    public int compareTo(BankBigDecimal amount) {
+        return this.value.compareTo(amount.value);
+    }
+
     // Additional methods as needed...
 }

@@ -2,6 +2,7 @@ package com.pluralsight.repository;
 
 import com.pluralsight.config.AppConfig;
 import com.pluralsight.model.Transaction;
+import com.pluralsight.ui.dto.TransactionSearchCriteria;
 import com.pluralsight.utils.files.FileReaderUtils;
 import com.pluralsight.utils.files.FileWriterUtils;
 
@@ -107,6 +108,13 @@ public class CsvTransactionRepository implements TransactionRepository {
         return transactions.stream()
                 .filter(t -> !t.getDate().isBefore(startOfYear)
                         && !t.getDate().isAfter(today))
+                .toList();
+    }
+
+    @Override
+    public List<Transaction> customSearch(TransactionSearchCriteria transaction) {
+        return transactions.stream()
+                .filter(transaction.toPredicate())
                 .toList();
     }
 
