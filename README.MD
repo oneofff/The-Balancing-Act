@@ -103,10 +103,18 @@ Data is stored in a pipe-delimited CSV file (`|`), located at `data/transactions
 
 ## Application Screens (Console Output Examples)
 
-**1. Welcome Screen:**![img.png](screenshots/img.png)
-**2. Home Menu:** ![img_1.png](screenshots/img_1.png)
-**3. Ledger Display:** ![img_2.png](screenshots/img_2.png)
-**4. Report Menu:** ![img_3.png](screenshots/img_3.png)
+**1. Welcome Screen:**
+
+![img.png](screenshots/img.png)
+**2. Home Menu:** 
+
+![img_1.png](screenshots/img_1.png)
+**3. Ledger Display:** 
+
+![img_2.png](screenshots/img_2.png)
+**4. Report Menu:** 
+
+![img_3.png](screenshots/img_3.png)
 
 ## Interesting Code Snippet:
 
