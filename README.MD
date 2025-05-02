@@ -99,7 +99,7 @@ accounting-ledger-application/
 └── pom.xml
 ```
 
-Data is stored in a pipe-delimited CSV file (`|`), typically located at `data/transactions.csv`.
+Data is stored in a pipe-delimited CSV file (`|`), located at `data/transactions.csv`.
 
 ## Application Screens (Console Output Examples)
 
