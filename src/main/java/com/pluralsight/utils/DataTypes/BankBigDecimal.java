@@ -69,11 +69,6 @@ public class BankBigDecimal {
         return new BankBigDecimal(this.value.setScale(scale, RoundingMode.HALF_EVEN));
     }
 
-    public boolean isEquals(int other) {
-        return this.value.compareTo(BigDecimal.valueOf(other)) == 0;
-    }
-
-
     @Override
     public String toString() {
         return value.toString();
@@ -90,6 +85,4 @@ public class BankBigDecimal {
     public int compareTo(BankBigDecimal amount) {
         return this.value.compareTo(amount.value);
     }
-
-    // Additional methods as needed...
 }

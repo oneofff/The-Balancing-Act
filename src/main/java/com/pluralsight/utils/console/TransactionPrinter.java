@@ -1,4 +1,4 @@
-package com.pluralsight.utils;
+package com.pluralsight.utils.console;
 
 import com.pluralsight.model.Transaction;
 

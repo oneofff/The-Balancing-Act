@@ -33,6 +33,11 @@ public class Transaction {
     }
 
     public String toCsv() {
-        return String.format("%s|%s|%s|%s|%.2f", date, time.format(DateTimeFormatter.ofPattern("HH:mm:ss")), description, vendor, amount.getDoubleValue());
+        return String.format("%s|%s|%s|%s|%.2f",
+                date,
+                time.format(DateTimeFormatter.ofPattern("HH:mm:ss")),
+                description,
+                vendor,
+                amount.getDoubleValue());
     }
 }

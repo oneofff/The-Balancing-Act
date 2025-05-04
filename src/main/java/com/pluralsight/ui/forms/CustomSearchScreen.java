@@ -1,11 +1,11 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.forms;
 
 import com.pluralsight.model.Transaction;
 import com.pluralsight.service.TransactionService;
 import com.pluralsight.ui.dto.TransactionSearchCriteria;
-import com.pluralsight.utils.ConsoleStringReader;
 import com.pluralsight.utils.DataTypes.BankBigDecimal;
-import com.pluralsight.utils.ScreenUtils;
+import com.pluralsight.utils.console.ConsoleStringReader;
+import com.pluralsight.utils.console.ScreenUtils;
 
 import java.util.List;
 
@@ -15,8 +15,7 @@ public class CustomSearchScreen {
 
         List<Transaction> transactions = TransactionService.customSearch(criteria);
 
-
-        ScreenUtils.printTransactions(transactions, "Custom search results");
+        ScreenUtils.printTransactionsReverse(transactions, "Custom search results");
     }
 
     private static TransactionSearchCriteria getTransactionSearchCriteria() {

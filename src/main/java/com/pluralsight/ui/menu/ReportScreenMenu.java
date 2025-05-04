@@ -1,13 +1,16 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.menu;
 
 import com.pluralsight.service.BalancingAppCoordinator;
-import com.pluralsight.utils.ScreenUtils;
+import com.pluralsight.ui.forms.CustomSearchScreen;
+import com.pluralsight.ui.views.DisplayTransactionScreen;
+import com.pluralsight.utils.console.ScreenUtils;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ReportScreen {
+public class ReportScreenMenu {
 
     public static int amountOfOptions() {
         return MenuOption.getAmountOfOptions();
@@ -24,24 +27,19 @@ public class ReportScreen {
     }
 
     @Getter
+    @AllArgsConstructor
     public enum MenuOption implements MenuEntry {
         MOUTH_TO_DATE(1, "Month to date", DisplayTransactionScreen::printMonthToDate),
         PREVIOUS_MONTH(2, "Previous month", DisplayTransactionScreen::printPreviousMonth),
         YEAR_TO_DATE(3, "Year to date", DisplayTransactionScreen::printYearToDate),
         PREVIOUS_YEAR(4, "Previous year", DisplayTransactionScreen::printPreviousYear),
         CUSTOM_SEARCH(5, "Custom search", CustomSearchScreen::customSearch),
-        BACK(6, "Back", BalancingAppCoordinator::ledgerScreenFlow);
+        BACK(0, "Back", BalancingAppCoordinator::ledgerScreenFlow);
 
 
         private final int value;
         private final String name;
         private final Runnable action;
-
-        MenuOption(int value, String name, Runnable action) {
-            this.value = value;
-            this.name = name;
-            this.action = action;
-        }
 
         public static int getAmountOfOptions() {
             return (int) Arrays.stream(values()).count();

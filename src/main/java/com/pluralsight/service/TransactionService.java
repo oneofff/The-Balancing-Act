@@ -3,8 +3,8 @@ package com.pluralsight.service;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.repository.CsvTransactionRepository;
 import com.pluralsight.repository.TransactionRepository;
-import com.pluralsight.ui.AddTransactionScreen;
 import com.pluralsight.ui.dto.TransactionSearchCriteria;
+import com.pluralsight.ui.forms.AddTransactionScreen;
 
 import java.util.List;
 

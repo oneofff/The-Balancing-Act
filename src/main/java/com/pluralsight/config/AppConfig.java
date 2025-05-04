@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class AppConfig {
     private static final Properties properties = new Properties();
+    private static final String CSV_FILE_PATH_PROPERTY = "transaction.file.path";
 
     static {
         try (InputStream in =
@@ -21,7 +22,7 @@ public class AppConfig {
     }
 
     public static String getCsvFilePath() {
-        return properties.getProperty("transaction.file.path");
+        return properties.getProperty(CSV_FILE_PATH_PROPERTY);
     }
 
 }

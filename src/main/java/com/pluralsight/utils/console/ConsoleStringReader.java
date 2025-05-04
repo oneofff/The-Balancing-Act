@@ -1,10 +1,10 @@
-package com.pluralsight.utils;
+package com.pluralsight.utils.console;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class ConsoleStringReader {
+public final class ConsoleStringReader {
 
     public static final Scanner scanner = new Scanner(System.in);
 
@@ -66,9 +66,5 @@ public class ConsoleStringReader {
                 ScreenUtils.printlnWithMargins("Invalid input. Please enter a valid date in the format yyyy-MM-dd.");
             }
         }
-    }
-
-    public static void close() {
-        scanner.close();
     }
 }

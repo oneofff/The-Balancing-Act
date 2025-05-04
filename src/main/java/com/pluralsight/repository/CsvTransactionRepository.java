@@ -7,52 +7,37 @@ import com.pluralsight.utils.files.FileReaderUtils;
 import com.pluralsight.utils.files.FileWriterUtils;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CsvTransactionRepository implements TransactionRepository {
+public class CsvTransactionRepository implements TransactionRepository, AutoCloseable {
 
     private final List<Transaction> transactions;
-    private final FileReaderUtils fileReaderUtils;
+
     private final FileWriterUtils fileWriterUtils;
-    private static CsvTransactionRepository instance;
     private static final String HEADER = "date|time|description|vendor|amount";
-    private final LocalDate today = LocalDate.now();
+    private final String csvFilePath = AppConfig.getCsvFilePath();
 
     private CsvTransactionRepository() {
-        this.fileWriterUtils = new FileWriterUtils(AppConfig.getCsvFilePath());
-        this.fileReaderUtils = new FileReaderUtils(AppConfig.getCsvFilePath());
-
-        if (fileReaderUtils.isEmpty()) {
-            fileWriterUtils.writeLine(HEADER);
+        this.fileWriterUtils = new FileWriterUtils(csvFilePath);
+        try (FileReaderUtils fileReaderUtils = new FileReaderUtils(csvFilePath)) {
+            if (fileReaderUtils.isEmpty()) {
+                fileWriterUtils.writeLine(HEADER);
+            }
+            this.transactions = readTransactions(fileReaderUtils);
         }
-        this.transactions = readTransactions();
     }
 
     public static CsvTransactionRepository getInstance() {
-        if (instance != null) {
-            return instance;
-        }
-        instance = new CsvTransactionRepository();
-        return instance;
+        return SingletonHolder.instance;
     }
 
-    @Override
-    public void save(Transaction transaction) {
-        this.transactions.add(transaction);
-        fileWriterUtils.writeLine(transaction.toCsv());
-    }
-
-    @Override
-    public List<Transaction> getDeposits() {
-        return this.transactions.stream()
-                .filter(t -> t.getAmount().getDoubleValue() > 0)
-                .toList();
-    }
-
-    private List<Transaction> readTransactions() {
+    private List<Transaction> readTransactions(FileReaderUtils fileReaderUtils) {
         List<Transaction> transactions = new LinkedList<>();
-        String header = fileReaderUtils.readLine(); // skip header
+        String header = fileReaderUtils.readLine();
+        if (header == null || !header.equals(HEADER))
+            throw new RuntimeException("Invalid header in " + csvFilePath);
         String line;
         while ((line = fileReaderUtils.readLine()) != null) {
             Transaction transaction = new Transaction(line);
@@ -62,8 +47,31 @@ public class CsvTransactionRepository implements TransactionRepository {
     }
 
     @Override
+    public void save(Transaction transaction) {
+        fileWriterUtils.writeLine(transaction.toCsv());
+        this.transactions.add(transaction);
+    }
+
+    @Override
     public List<Transaction> getAllTransactions() {
-        return transactions;
+        return Collections.unmodifiableList(transactions);
+    }
+
+    @Override
+    public List<Transaction> getDeposits() {
+        return this.transactions.stream()
+                .filter(t -> t.getAmount().getDoubleValue() > 0)
+                .toList();
+    }
+
+    @Override
+    public List<Transaction> getMonthToDate() {
+        LocalDate today = LocalDate.now();
+        LocalDate monthStart = today.withDayOfMonth(1);
+        return transactions.stream()
+                .filter(t -> !t.getDate().isBefore(monthStart)
+                        && !t.getDate().isAfter(today))
+                .toList();
     }
 
     @Override
@@ -74,16 +82,8 @@ public class CsvTransactionRepository implements TransactionRepository {
     }
 
     @Override
-    public List<Transaction> getMonthToDate() {
-        LocalDate monthStart = today.withDayOfMonth(1);
-        return transactions.stream()
-                .filter(t -> !t.getDate().isBefore(monthStart)
-                        && !t.getDate().isAfter(today))
-                .toList();
-    }
-
-    @Override
     public List<Transaction> getPreviousMonth() {
+        LocalDate today = LocalDate.now();
         LocalDate prevMonthStart = today.minusMonths(1).withDayOfMonth(1);
         LocalDate thisMonthStart = today.withDayOfMonth(1);
         return transactions.stream()
@@ -94,6 +94,7 @@ public class CsvTransactionRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getPreviousYear() {
+        LocalDate today = LocalDate.now();
         LocalDate startOfLastYear = today.minusYears(1).withDayOfYear(1);
         LocalDate startOfThisYear = today.withDayOfYear(1);
         return transactions.stream()
@@ -104,11 +105,19 @@ public class CsvTransactionRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> getYearToDate() {
+        LocalDate today = LocalDate.now();
         LocalDate startOfYear = today.withDayOfYear(1);
         return transactions.stream()
                 .filter(t -> !t.getDate().isBefore(startOfYear)
                         && !t.getDate().isAfter(today))
                 .toList();
+    }
+
+    @Override
+    public void close() {
+        if (fileWriterUtils != null) {
+            fileWriterUtils.close();
+        }
     }
 
     @Override
@@ -118,8 +127,7 @@ public class CsvTransactionRepository implements TransactionRepository {
                 .toList();
     }
 
-    public void close() {
-        fileWriterUtils.close();
-        fileReaderUtils.close();
+    private static final class SingletonHolder {
+        private static final CsvTransactionRepository instance = new CsvTransactionRepository();
     }
 }

@@ -1,6 +1,6 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.entryexit;
 
-import com.pluralsight.utils.ScreenUtils;
+import com.pluralsight.utils.console.ScreenUtils;
 
 public class WelcomeScreen {
 

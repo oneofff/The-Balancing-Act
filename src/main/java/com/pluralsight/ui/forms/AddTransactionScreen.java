@@ -1,8 +1,8 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.forms;
 
 import com.pluralsight.model.Transaction;
-import com.pluralsight.utils.ConsoleStringReader;
-import com.pluralsight.utils.ScreenUtils;
+import com.pluralsight.utils.console.ConsoleStringReader;
+import com.pluralsight.utils.console.ScreenUtils;
 
 public class AddTransactionScreen {
     public static Transaction addTransaction(boolean isDeposit) {

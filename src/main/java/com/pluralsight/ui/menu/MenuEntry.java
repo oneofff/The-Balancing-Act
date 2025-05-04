@@ -1,4 +1,4 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.menu;
 
 public interface MenuEntry {
     int getValue();

@@ -1,4 +1,4 @@
-package com.pluralsight.utils;
+package com.pluralsight.utils.console;
 
 import com.pluralsight.model.Transaction;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ScreenUtils {
+public final class ScreenUtils {
     private static final int SCREEN_HEIGHT_LINES = 20;
     private static final int DEFAULT_BORDER_LENGTH = 52;
     private static final int INNER_WIDTH = DEFAULT_BORDER_LENGTH - 2;
@@ -103,10 +103,10 @@ public class ScreenUtils {
 
     public static int askForMenuOptionsInput(int amountOfOptions) {
         ScreenUtils.printOnCenterOfTheScreen("Please select an option: ");
-        return ConsoleStringReader.getIntInRangeWithMargin(1, amountOfOptions);
+        return ConsoleStringReader.getIntInRangeWithMargin(0, amountOfOptions);
     }
 
-    public static void printTransactions(List<Transaction> allTransactions, String title) {
+    public static void printTransactionsReverse(List<Transaction> allTransactions, String title) {
         List<Transaction> transactions = new ArrayList<>(allTransactions);
         Collections.reverse(transactions);
         TransactionPrinter.printTransactions(transactions, title);

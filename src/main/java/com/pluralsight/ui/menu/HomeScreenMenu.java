@@ -1,14 +1,14 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.menu;
 
 import com.pluralsight.service.BalancingAppCoordinator;
 import com.pluralsight.service.TransactionService;
-import com.pluralsight.utils.ScreenUtils;
+import com.pluralsight.utils.console.ScreenUtils;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class HomeScreen {
+public class HomeScreenMenu {
 
 
     public static int amountOfOptions() {
@@ -23,28 +23,23 @@ public class HomeScreen {
     }
 
     @Getter
+    @AllArgsConstructor
     public enum MenuOption implements MenuEntry {
         ADD_DEPOSIT(1, "Add deposit", TransactionService::addDeposit),
         MAKE_PAYMENT(2, "Make payment", TransactionService::makePayment),
         LEDGER_MENU(3, "Ledger menu", BalancingAppCoordinator::ledgerScreenFlow),
-        EXIT(4, "Exit", BalancingAppCoordinator::exit);
+        EXIT(0, "Exit", BalancingAppCoordinator::exit);
 
         private final int value;
         private final String name;
         private final Runnable action;
-
-        MenuOption(int value, String name, Runnable action) {
-            this.value = value;
-            this.name = name;
-            this.action = action;
-        }
 
         public String getRepresentation() {
             return value + ". " + name;
         }
 
         public static int getAmountOfOptions() {
-            return (int) Arrays.stream(values()).count();
+            return values().length;
         }
     }
 }

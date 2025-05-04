@@ -1,12 +1,14 @@
-package com.pluralsight.ui;
+package com.pluralsight.ui.menu;
 
 import com.pluralsight.service.BalancingAppCoordinator;
-import com.pluralsight.utils.ScreenUtils;
+import com.pluralsight.ui.views.DisplayTransactionScreen;
+import com.pluralsight.utils.console.ScreenUtils;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
-public class LedgerScreen {
+public class LedgerScreenMenu {
 
 
     public static int amountOfOptions() {
@@ -22,22 +24,17 @@ public class LedgerScreen {
     }
 
     @Getter
+    @AllArgsConstructor
     public enum MenuOption implements MenuEntry {
         DISPLAY_ALL(1, "Display all transactions", DisplayTransactionScreen::printAll),
         DISPLAY_DEPOSITS(2, "Display deposits", DisplayTransactionScreen::printDeposits),
         DISPLAY_PAYMENTS(3, "Display payments", DisplayTransactionScreen::printPayments),
         REPORTS(4, "Reports", BalancingAppCoordinator::reportScreenFlow),
-        BACK(5, "Back", BalancingAppCoordinator::homeScreenFlow);
+        BACK(0, "Back", BalancingAppCoordinator::homeScreenFlow);
 
         private final int value;
         private final String name;
         private final Runnable action;
-
-        MenuOption(int value, String name, Runnable action) {
-            this.value = value;
-            this.name = name;
-            this.action = action;
-        }
 
         public static int getAmountOfOptions() {
             return MenuOption.values().length;
